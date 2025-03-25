@@ -8,7 +8,7 @@ This project analyzes UK railway data to extract valuable insights for decision-
 
 ### Phase 1: Data Infrastructure and Preprocessing
 
-- Building a data warehouse and data model
+- Building data warehouse and data model
 - Data cleaning and preprocessing
 - **Tools**: SQL, Python (pandas, numpy)
 - **Deliverables**: Data warehouse, cleaned dataset, preprocessing notebook
