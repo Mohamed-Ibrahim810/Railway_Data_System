@@ -3,7 +3,7 @@
 DDL Script: Create Gold Tables
 ===============================================================================
 Script Purpose:
-    - This script creates the table in the 'gold' schema, dropping existing table
+    - This script creates the tables in the 'gold' schema, dropping existing table
 	  if it already exist
 	- Run this script to re-define the DDL structure of 'gold' Table
 ===============================================================================
