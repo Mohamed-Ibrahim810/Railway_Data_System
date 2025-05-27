@@ -45,7 +45,7 @@ BEGIN
 				PRINT'=================================='
 				PRINT'        !! ERROR OCCURD !!'
 				PRINT'=================================='
-        -- Debugging Output
+
         PRINT 'Error Message: ' + ERROR_MESSAGE();
         PRINT 'Error Severity: ' + CAST(ERROR_SEVERITY() AS VARCHAR);
         PRINT 'Error State: ' + CAST(ERROR_STATE() AS VARCHAR);
