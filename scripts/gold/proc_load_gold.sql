@@ -30,52 +30,71 @@ BEGIN
 	BEGIN TRY
 		BEGIN TRANSACTION
         -- **TRUNCATE FACT TABLE FIRST to prevent FK conflicts**
+		PRINT '---------- fact_railway truncated ----------'
 		TRUNCATE TABLE gold.fact_railway
 
 		PRINT '==================================================';
 		PRINT '             Loading gold layer';
 		PRINT '==================================================';
 		---------------------------------------------------------------------------------
+		PRINT '---------- dim_ticket truncated ----------'
 		DELETE FROM gold.dim_ticket;
 		DBCC CHECKIDENT ('gold.dim_ticket', RESEED, 0);
 
+		PRINT '---------- Data lodaed into the dim_ticket ----------'
 		INSERT INTO gold.dim_ticket (ticket_type, ticket_class, railcard)
 		SELECT DISTINCT 
 			ticket_type, 
 			ticket_class, 
-			railcard
+			railcard 
 		FROM silver.railway;
+		PRINT'********************************************************************************************'
 		---------------------------------------------------------------------------------
+		PRINT '---------- dim_payment truncated ----------'
 		DELETE FROM gold.dim_payment;
 		DBCC CHECKIDENT ('gold.dim_payment', RESEED, 0);
 
+		PRINT '---------- Data lodaed into the dim_payment ----------'
 		INSERT INTO gold.dim_payment (purchase_type, payment_method)
 		SELECT DISTINCT 
 			purchase_type, 
 			payment_method
 		FROM silver.railway;
+		PRINT'********************************************************************************************'
 		---------------------------------------------------------------------------------
+		PRINT '---------- dim_station truncated ----------'
 		DELETE FROM gold.dim_station;
 		DBCC CHECKIDENT ('gold.dim_station', RESEED, 0);
 
+		PRINT '---------- Data lodaed into the dim_station ----------'
 		INSERT INTO gold.dim_station (station)
-			SELECT departure_station AS st1 FROM silver.railway
-			UNION
-			SELECT arrival_station AS st2 FROM silver.railway
+		SELECT
+		departure_station AS st1
+		FROM silver.railway
+		UNION
+		SELECT
+		arrival_station AS st2
+		FROM silver.railway
+		PRINT'********************************************************************************************'
 		---------------------------------------------------------------------------------
+		PRINT '---------- dim_journey truncated ----------'
 		DELETE FROM gold.dim_journey;
 		DBCC CHECKIDENT ('gold.dim_journey', RESEED, 0);
 
+		PRINT '---------- Data lodaed into the dim_journey ----------'
 		INSERT INTO gold.dim_journey (journey_status, reason_for_delay, refund_request)
 		SELECT DISTINCT 
 			journey_status, 
 			reason_for_delay,
 			refund_request
 		FROM silver.railway;
+		PRINT'********************************************************************************************'
 		---------------------------------------------------------------------------------
+		PRINT '---------- dim_date truncated ----------'
 		DELETE FROM gold.dim_date;
 		DBCC CHECKIDENT ('gold.dim_date', RESEED, 0);
 
+		PRINT '---------- Data lodaed into the dim_date ----------'
 		INSERT INTO gold.dim_date (full_date, year, month, day, weekday)
 		SELECT DISTINCT 
 			full_date, 
@@ -88,10 +107,13 @@ BEGIN
 			UNION
 			SELECT date_of_journey AS full_date  FROM silver.railway
 		) AS dates;
+		PRINT'********************************************************************************************'
 		-----------------------------------------------------------------------------
+		PRINT '---------- dim_time truncated ----------'
 		DELETE FROM gold.dim_time;
 		DBCC CHECKIDENT ('gold.dim_time', RESEED, 0);
 
+		PRINT '---------- Data lodaed into the dim_time ----------'
 		INSERT INTO gold.dim_time (full_time, hour, minute, period)
 		SELECT DISTINCT 
 			full_time, 
@@ -107,7 +129,9 @@ BEGIN
 			UNION
 			SELECT actual_arrival_time AS full_time  FROM silver.railway WHERE actual_arrival_time IS NOT NULL
 		) AS times;
+		PRINT'********************************************************************************************'
 		------------------------------------------------------------------------------------------------------
+		PRINT '---------- Data lodaed into the fact_railway ----------'
 		INSERT INTO gold.fact_railway (
 			transaction_id,
 			ticket_id,
@@ -174,6 +198,7 @@ BEGIN
 
 		LEFT JOIN gold.dim_time aart 
 			ON s.actual_arrival_time = aart.full_time;
+			PRINT'********************************************************************************************'
 		COMMIT TRANSACTION;
 	END TRY
 	BEGIN CATCH
@@ -181,7 +206,6 @@ BEGIN
 				PRINT'        !! ERROR OCCURD !!'
 				PRINT'=================================='
 
-        -- Debugging Output
         PRINT 'Error Message: ' + ERROR_MESSAGE();
         PRINT 'Error Severity: ' + CAST(ERROR_SEVERITY() AS VARCHAR);
         PRINT 'Error State: ' + CAST(ERROR_STATE() AS VARCHAR);
