@@ -1,35 +1,34 @@
-# UK-Railway Data Analysis Project
+# UK-Railway Data Analysis
 
-## Project Overview
+## Project overview
 
-This project analyzes UK railway data to extract valuable insights for decision-makers, It involves building a data warehouse, performing comprehensive analysis, developing forecasting model, and creating visualization dashboards.
+This project analyzes UK railway data to extract valuable insights for decision-makers, It involves building a data warehouse, preprocessing, analysis, developing forecasting model, creating visualization dashboards and recommendations.
 
-## Project Phases
+## Project plan
 
-### Phase 1: Data Infrastructure and Preprocessing
+### Phase 1: Infrastructure and Preprocessing
 
-- Building data warehouse and data model
-- Data cleaning and preprocessing
-- **Tools**: SQL, Python (pandas, numpy)
-- **Deliverables**: Data warehouse, cleaned dataset, preprocessing notebook
+- Building data warehouse and a data model
+- Data preprocessing, validation, quality checks
+- **Tools**: SQL Server, Python
+- **Deliverables**: Data warehouse, clean dataset, preprocessing notebook and data model
 
 ### Phase 2: Analysis
-
-- Identifying and answering key analysis questions from the dataset
-- Generating insights for organizational decision-makers
-- **Tools**: SQL, Python (pandas, numpy)
+- Performing exploratory data analysis
+- Identifying and answering key analysis questions
+- **Tools**: SQL Server, Python
 - **Deliverables**: Documented analysis questions and answers
 
 ### Phase 3: Forecasting
 
 - Predicting future ride numbers and revenue
-- Forecasting demand across different ticket classes
-- **Tools**: Python (scikit-learn, pandas, Matplotlib)
+- Forecasting demand across ticket classes
+- **Tools**: Python (Xgboost)
 - **Deliverables**: Forecasting model and visualization plots
 
 ### Phase 4: Visualization and Presentation
 
-- Creating interactive dashboards to visualize key insights
-- Preparing comprehensive documentation and presentation materials
-- **Tools**: SQL, Python (pandas, Matplotlib), PowerBI
-- **Deliverables**: PowerBI dashboard, final report and presentation
+- Creating dashboards to visualize insights
+- Creating project presentation
+- **Tools**: PowerBI, Tableau, PowerPoint
+- **Deliverables**: PowerBI & Tableau reports, presentation
